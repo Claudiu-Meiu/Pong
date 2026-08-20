@@ -1,69 +1,89 @@
 #include <raylib.h>
 
-typedef struct Paddle {
-  Vector2 size;
-  Vector2 position;
-} Paddle;
-
 typedef struct Ball {
-  float radius;
   Vector2 position;
+  int radius;
 } Ball;
 
 int main(void) {
-  // Initkr
-  SetTargetFPS(0);
-
+  // Init
   const int screenWidth = 1920;
   const int screenHeight = 1080;
 
   InitWindow(screenWidth, screenHeight, "Da Pong");
   ToggleFullscreen();
 
-  Paddle leftPaddle = {{10.0f, 100.0f},
-                       {300.0f - leftPaddle.size.x / 2.0f,
-                        GetScreenHeight() / 2.0f - leftPaddle.size.y / 2.0f}};
+  Rectangle leftPaddle = {300.0f - 10.0f / 2.0f,
+                          GetScreenHeight() / 2.0f - 100.0f / 2.0f, 10.0f,
+                          100.0f};
 
-  Paddle rightPaddle = {{10.0f, 100.0f},
-                        {GetScreenWidth() - 300.0f - rightPaddle.size.x / 2.0f,
-                         GetScreenHeight() / 2.0f - rightPaddle.size.y / 2.0f}};
+  Rectangle rightPaddle = {GetScreenWidth() - 300.0f - 10.0f / 2.0f,
+                           GetScreenHeight() / 2.0f - 100.0f / 2.0f, 10.0f,
+                           100.0f};
 
-  Ball ball = {10.0f, {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f}};
+  Ball ball = {{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f}, 10};
 
-  float speed = 10.0f;
-  const float multiplier = 150.0f * speed;
+  float leftPaddleSpeed = 1500.0f;
+  float rightPaddleSpeed = 1500.0f;
+  Vector2 ballSpeed = {1000.0f, 500.0f};
+
+  bool ballCollisionWithLeftPaddle = false;
+  bool ballCollisionWithRightPaddle = false;
+
+  SetTargetFPS(0);
 
   // Game loop
   while (!WindowShouldClose()) {
-    // Update input
+    // Update
     if (IsKeyDown(KEY_W)) { // Left paddle moving up
-      if (leftPaddle.position.y <= 0) {
-        speed = 0;
+      if (leftPaddle.y <= 0) {
+        leftPaddleSpeed += 0;
       } else {
-        leftPaddle.position.y -= GetFrameTime() * multiplier;
+        leftPaddle.y -= GetFrameTime() * leftPaddleSpeed;
       }
     }
     if (IsKeyDown(KEY_S)) { // Left paddle moving down
-      if ((leftPaddle.position.y + leftPaddle.size.y) >= GetScreenHeight()) {
-        speed = 0;
+      if (leftPaddle.y >= (GetScreenHeight() - leftPaddle.height)) {
+        leftPaddleSpeed += 0;
       } else {
-        leftPaddle.position.y += GetFrameTime() * multiplier;
+        leftPaddle.y += GetFrameTime() * leftPaddleSpeed;
       }
     }
 
     if (IsKeyDown(KEY_UP)) { // Right paddle moving up
-      if (rightPaddle.position.y <= 0) {
-        speed = 0;
+      if (rightPaddle.y <= 0) {
+        rightPaddleSpeed += 0;
       } else {
-        rightPaddle.position.y -= GetFrameTime() * multiplier;
+        rightPaddle.y -= GetFrameTime() * rightPaddleSpeed;
       }
     }
     if (IsKeyDown(KEY_DOWN)) { // Right paddle moving down
-      if ((rightPaddle.position.y + rightPaddle.size.y) >= GetScreenHeight()) {
-        speed = 0;
+      if (rightPaddle.y >= (GetScreenHeight() - rightPaddle.height)) {
+        rightPaddleSpeed += 0;
       } else {
-        rightPaddle.position.y += GetFrameTime() * multiplier;
+        rightPaddle.y += GetFrameTime() * rightPaddleSpeed;
       }
+    }
+
+    ball.position.x += GetFrameTime() * ballSpeed.x;
+    ball.position.y += GetFrameTime() * ballSpeed.y;
+
+    ballCollisionWithLeftPaddle =
+        CheckCollisionCircleRec(ball.position, ball.radius, leftPaddle);
+    ballCollisionWithRightPaddle =
+        CheckCollisionCircleRec(ball.position, ball.radius, rightPaddle);
+
+    // Check collisions
+    if ((ball.position.x >= (GetScreenWidth() - ball.radius)) ||
+        (ball.position.x <= ball.radius))
+      ballSpeed.x *= -1.0f;
+    if ((ball.position.y >= (GetScreenHeight() - ball.radius)) ||
+        (ball.position.y <= ball.radius))
+      ballSpeed.y *= -1.0f;
+
+    if (ballCollisionWithLeftPaddle || ballCollisionWithRightPaddle) {
+      ballSpeed.x *= -1.0f;
+      ballSpeed.y *= -1.0f;
     }
 
     // Draw
@@ -72,13 +92,13 @@ int main(void) {
     ClearBackground(BLACK);
 
     // Left paddle
-    DrawRectangleV(leftPaddle.position, leftPaddle.size, WHITE);
-
+    DrawRectangle(leftPaddle.x, leftPaddle.y, leftPaddle.width,
+                  leftPaddle.height, WHITE);
     // Ball
     DrawCircleV(ball.position, ball.radius, WHITE);
-
     // Right paddle
-    DrawRectangleV(rightPaddle.position, rightPaddle.size, WHITE);
+    DrawRectangle(rightPaddle.x, rightPaddle.y, rightPaddle.width,
+                  rightPaddle.height, WHITE);
 
     EndDrawing();
   }
