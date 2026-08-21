@@ -37,12 +37,14 @@ int main(void) {
   while (!WindowShouldClose()) {
     // UPDATE
 
+    float delta_time = GetFrameTime();
+
     // Left paddle moving up
     if (IsKeyDown(KEY_W)) {
       if (left_paddle.y <= 0) {
         left_paddle_speed += 0;
       } else {
-        left_paddle.y -= GetFrameTime() * left_paddle_speed;
+        left_paddle.y -= delta_time * left_paddle_speed;
       }
     }
     // Left paddle moving down
@@ -50,7 +52,7 @@ int main(void) {
       if (left_paddle.y >= (GetScreenHeight() - left_paddle.height)) {
         left_paddle_speed += 0;
       } else {
-        left_paddle.y += GetFrameTime() * left_paddle_speed;
+        left_paddle.y += delta_time * left_paddle_speed;
       }
     }
     // Right paddle moving up
@@ -58,7 +60,7 @@ int main(void) {
       if (right_paddle.y <= 0) {
         right_paddle_speed += 0;
       } else {
-        right_paddle.y -= GetFrameTime() * right_paddle_speed;
+        right_paddle.y -= delta_time * right_paddle_speed;
       }
     }
     // Right paddle moving down
@@ -66,19 +68,19 @@ int main(void) {
       if (right_paddle.y >= (GetScreenHeight() - right_paddle.height)) {
         right_paddle_speed += 0;
       } else {
-        right_paddle.y += GetFrameTime() * right_paddle_speed;
+        right_paddle.y += delta_time * right_paddle_speed;
       }
     }
 
-    ball.position.x += GetFrameTime() * ball_speed.x;
-    ball.position.y += GetFrameTime() * ball_speed.y;
+    ball.position.x += delta_time * ball_speed.x;
+    ball.position.y += delta_time * ball_speed.y;
 
+    // Check collisions
     ball_collision_with_left_paddle =
         CheckCollisionCircleRec(ball.position, ball.radius, left_paddle);
     ball_collision_with_right_paddle =
         CheckCollisionCircleRec(ball.position, ball.radius, right_paddle);
 
-    // Check collisions
     if ((ball.position.x >= (GetScreenWidth() - ball.radius)) ||
         (ball.position.x <= ball.radius)) {
       ball_speed.x *= -1.0f;
@@ -95,7 +97,7 @@ int main(void) {
 
     if (ball_collision_with_left_paddle) {
       ball.position.x = (left_paddle.x + left_paddle.width) + ball.radius;
-      if (ball_speed.x < 0) {
+      if (ball_speed.x < 0 ) {
         ball_speed.x *= -1.0f;
         // increase speed (linear progression)
         ball_speed.x = (fabsf(ball_speed.x) + 25.0f);
