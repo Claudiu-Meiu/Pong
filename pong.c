@@ -11,7 +11,7 @@ int main(void) {
   const int screen_width = 1920;
   const int screen_height = 1080;
 
-  InitWindow(screen_width, screen_height, "Da Pong");
+  InitWindow(screen_width, screen_height, "Pong");
   ToggleFullscreen();
 
   Rectangle left_paddle = {300.0f - 10.0f / 2.0f,
