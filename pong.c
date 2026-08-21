@@ -1,3 +1,4 @@
+#include <math.h>
 #include <raylib.h>
 
 typedef struct Ball {
@@ -6,7 +7,7 @@ typedef struct Ball {
 } Ball;
 
 int main(void) {
-  // Init
+  // INIT
   const int screenWidth = 1920;
   const int screenHeight = 1080;
 
@@ -25,39 +26,43 @@ int main(void) {
 
   float leftPaddleSpeed = 1500.0f;
   float rightPaddleSpeed = 1500.0f;
-  Vector2 ballSpeed = {1000.0f, 500.0f};
+  Vector2 ballSpeed = {500.0f, 500.0f};
 
   bool ballCollisionWithLeftPaddle = false;
   bool ballCollisionWithRightPaddle = false;
 
   SetTargetFPS(0);
 
-  // Game loop
+  // GAME LOOP
   while (!WindowShouldClose()) {
-    // Update
-    if (IsKeyDown(KEY_W)) { // Left paddle moving up
+    // UPDATE
+
+    // Left paddle moving up
+    if (IsKeyDown(KEY_W)) {
       if (leftPaddle.y <= 0) {
         leftPaddleSpeed += 0;
       } else {
         leftPaddle.y -= GetFrameTime() * leftPaddleSpeed;
       }
     }
-    if (IsKeyDown(KEY_S)) { // Left paddle moving down
+    // Left paddle moving down
+    if (IsKeyDown(KEY_S)) {
       if (leftPaddle.y >= (GetScreenHeight() - leftPaddle.height)) {
         leftPaddleSpeed += 0;
       } else {
         leftPaddle.y += GetFrameTime() * leftPaddleSpeed;
       }
     }
-
-    if (IsKeyDown(KEY_UP)) { // Right paddle moving up
+    // Right paddle moving up
+    if (IsKeyDown(KEY_UP)) {
       if (rightPaddle.y <= 0) {
         rightPaddleSpeed += 0;
       } else {
         rightPaddle.y -= GetFrameTime() * rightPaddleSpeed;
       }
     }
-    if (IsKeyDown(KEY_DOWN)) { // Right paddle moving down
+    // Right paddle moving down
+    if (IsKeyDown(KEY_DOWN)) {
       if (rightPaddle.y >= (GetScreenHeight() - rightPaddle.height)) {
         rightPaddleSpeed += 0;
       } else {
@@ -75,18 +80,37 @@ int main(void) {
 
     // Check collisions
     if ((ball.position.x >= (GetScreenWidth() - ball.radius)) ||
-        (ball.position.x <= ball.radius))
+        (ball.position.x <= ball.radius)) {
       ballSpeed.x *= -1.0f;
-    if ((ball.position.y >= (GetScreenHeight() - ball.radius)) ||
-        (ball.position.y <= ball.radius))
-      ballSpeed.y *= -1.0f;
+    }
 
-    if (ballCollisionWithLeftPaddle || ballCollisionWithRightPaddle) {
-      ballSpeed.x *= -1.0f;
+    if (ball.position.y <= ball.radius) {
+      ball.position.y = ball.radius;
+      ballSpeed.y *= -1.0f;
+    }
+    if (ball.position.y >= GetScreenHeight() - ball.radius) {
+      ball.position.y = GetScreenHeight() - ball.radius;
       ballSpeed.y *= -1.0f;
     }
 
-    // Draw
+    if (ballCollisionWithLeftPaddle) {
+      ball.position.x = (leftPaddle.x + leftPaddle.width) + ball.radius;
+      if (ballSpeed.x < 0) {
+        ballSpeed.x *= -1.0f;
+        // increase speed (linear progression)
+        ballSpeed.x = (fabsf(ballSpeed.x) + 25.0f);
+      }
+    }
+    if (ballCollisionWithRightPaddle) {
+      ball.position.x = rightPaddle.x - ball.radius;
+      if (ballSpeed.x > 0) {
+        ballSpeed.x *= -1.0f;
+        // increase speed (linear progression)
+        ballSpeed.x = -(fabsf(ballSpeed.x) + 25.0f);
+      }
+    }
+
+    // DRAW
     BeginDrawing();
 
     ClearBackground(BLACK);
@@ -103,7 +127,7 @@ int main(void) {
     EndDrawing();
   }
 
-  // De-init
+  // DE-INIT
   CloseWindow();
 
   return 0;
