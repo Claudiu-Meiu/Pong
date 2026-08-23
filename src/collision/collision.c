@@ -31,7 +31,7 @@ void check_ball_collision_with_paddle(Rectangle paddle, Vector2 *ball_position,
   float hit_offset = ball_position->y - paddle_center_y;
   float hit_position = hit_offset / (paddle.height / 2.0f);
 
-  // For the right paddle
+  // For the left paddle
   if (paddle.x < GetScreenWidth() / 2.0f) {
     ball_position->x = paddle.x + paddle.width + ball_radius;
 
