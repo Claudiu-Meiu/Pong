@@ -1,7 +1,7 @@
 #include <math.h>
 #include <raylib.h>
 
-void check_ball_collision_with_wall(Vector2 *ball_position, int ball_radius,
+void check_ball_collision_with_wall(Vector2 *ball_position, float ball_radius,
                                     Vector2 *ball_speed) {
   if ((ball_position->x >= (GetScreenWidth() - ball_radius)) ||
       (ball_position->x <= ball_radius)) {
@@ -19,7 +19,7 @@ void check_ball_collision_with_wall(Vector2 *ball_position, int ball_radius,
 }
 
 void check_ball_collision_with_paddle(Rectangle paddle, Vector2 *ball_position,
-                                      int ball_radius, Vector2 *ball_speed) {
+                                      float ball_radius, Vector2 *ball_speed) {
   bool ball_collision_with_paddle =
       CheckCollisionCircleRec(*ball_position, ball_radius, paddle);
 

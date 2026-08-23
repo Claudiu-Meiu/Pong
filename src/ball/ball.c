@@ -2,7 +2,7 @@
 
 typedef struct Ball {
   Vector2 position;
-  int radius;
+  float radius;
 } Ball;
 
 Ball ball;
