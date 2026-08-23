@@ -1,6 +1,7 @@
-#include "ball/ball.h"
 #include "collision/collision.h"
-#include "paddle/paddle.h"
+#include "entities/ball/ball.h"
+#include "entities/dividing_line/dividing_line.h"
+#include "entities/paddle/paddle.h"
 #include <raylib.h>
 
 int main(void) {
@@ -12,6 +13,7 @@ int main(void) {
   SetTargetFPS(0);
 
   init_paddle();
+  init_dividing_line();
   init_ball();
 
   // GAME LOOP
@@ -34,6 +36,7 @@ int main(void) {
     ClearBackground(BLACK);
 
     draw_paddle();
+    draw_dividing_line();
     draw_ball();
 
     EndDrawing();
