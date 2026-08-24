@@ -9,6 +9,8 @@ typedef struct Ball {
 } Ball;
 
 extern Ball ball;
+extern Vector2 speeds[6];
+extern Vector2 random_speed;
 extern Vector2 ball_speed;
 
 void init_ball();
