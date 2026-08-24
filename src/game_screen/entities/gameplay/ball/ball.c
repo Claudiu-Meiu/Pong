@@ -7,10 +7,11 @@ typedef struct Ball {
 
 Ball ball;
 
-Vector2 ball_speed = {500.0f, 500.0f};
+Vector2 ball_speed;
 
 void init_ball() {
-  ball = (Ball){{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f}, 10};
+  ball = (Ball){{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f}, 10.0f};
+  ball_speed = (Vector2){500.0f, 500.0f};
 }
 
 void update_ball_position_based_on_speed() {

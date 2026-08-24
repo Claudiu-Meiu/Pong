@@ -3,15 +3,12 @@
 
 void check_ball_collision_with_wall(Vector2 ball_position, float ball_radius,
                                     Vector2 *ball_speed) {
-  if ((ball_position.x >= (GetScreenWidth() - ball_radius)) ||
-      (ball_position.x <= ball_radius)) {
-    ball_speed->x *= -1.0f;
-  }
-  // For top and bottom
+  // Top wall
   if (ball_position.y <= ball_radius) {
     ball_position.y = ball_radius;
     ball_speed->y *= -1.0f;
   }
+  // Bottom wall
   if (ball_position.y >= GetScreenHeight() - ball_radius) {
     ball_position.y = GetScreenHeight() - ball_radius;
     ball_speed->y *= -1.0f;
