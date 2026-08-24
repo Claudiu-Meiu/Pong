@@ -32,12 +32,12 @@ int main(void) {
       update_ball_position_based_on_speed();
 
       // Check collisions
-      check_ball_collision_with_wall(&ball.position, ball.radius, &ball_speed);
+      check_ball_collision_with_wall(ball.position, ball.radius, &ball_speed);
 
-      check_ball_collision_with_paddle(left_paddle, &ball.position, ball.radius,
+      check_ball_collision_with_paddle(left_paddle, ball.position, ball.radius,
                                        &ball_speed);
 
-      check_ball_collision_with_paddle(right_paddle, &ball.position,
+      check_ball_collision_with_paddle(right_paddle, ball.position,
                                        ball.radius, &ball_speed);
     } break;
     default:

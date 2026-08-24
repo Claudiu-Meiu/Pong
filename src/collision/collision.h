@@ -3,10 +3,10 @@
 
 #include <raylib.h>
 
-void check_ball_collision_with_wall(Vector2 *ball_position, float ball_radius,
+void check_ball_collision_with_wall(Vector2 ball_position, float ball_radius,
                                     Vector2 *ball_speed);
 
-void check_ball_collision_with_paddle(Rectangle paddle, Vector2 *ball_position,
+void check_ball_collision_with_paddle(Rectangle paddle, Vector2 ball_position,
                                       float ball_radius, Vector2 *ball_speed);
 
 #endif
