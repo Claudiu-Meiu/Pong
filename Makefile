@@ -5,13 +5,10 @@ LDFLAGS = -lraylib -lm
 
 TARGET = bin/pong
 
-SRC = \
-	src/pong.c \
-	src/collision/collision.c \
-	src/game_screen/entities/gameplay/ball/ball.c \
-	src/game_screen/entities/gameplay/dividing_line/dividing_line.c \
-	src/game_screen/entities/gameplay/paddle/paddle.c \
-	src/game_screen/entities/menu/start_button/start_button.c
+rwildcard = $(foreach d,$(wildcard $1*/),$(call rwildcard,$d,$2)) \
+            $(wildcard $1$2)
+
+SRC = $(call rwildcard,src/,*.c)
 
 .PHONY: all clean
 
