@@ -8,11 +8,11 @@ float right_paddle_speed = 1500.0f;
 
 void init_paddle() {
   left_paddle =
-      (Rectangle){300.0f - 10.0f / 2.0f,
-                  GetScreenHeight() / 2.0f - 100.0f / 2.0f, 10.0f, 100.0f};
+      (Rectangle){100.0f - 10.0f / 2.0f,
+                  GetScreenHeight() / 2.0f - 100.0f / 2.0f, 20.0f, 100.0f};
   right_paddle =
-      (Rectangle){GetScreenWidth() - 300.0f - 10.0f / 2.0f,
-                  GetScreenHeight() / 2.0f - 100.0f / 2.0f, 10.0f, 100.0f};
+      (Rectangle){GetScreenWidth() - 100.0f - 10.0f / 2.0f,
+                  GetScreenHeight() / 2.0f - 100.0f / 2.0f, 20.0f, 100.0f};
 };
 
 void update_paddle_position_and_speed() {
