@@ -13,5 +13,5 @@ void draw_start_button() {
   const int font_size = 60;
   const int text_width = MeasureText(text, font_size);
   DrawText(text, (GetScreenWidth() - text_width) / 2.0f,
-           GetScreenHeight() / 2.0f, font_size, WHITE);
+           GetScreenHeight() / 2.0f, font_size, RAYWHITE);
 }

@@ -19,7 +19,7 @@ int main(void) {
 
   init_paddle();
   init_dividing_line();
-  init_ball();
+  init_ball(randomized_ball_speed());
   init_score();
 
   // GAME LOOP
@@ -33,15 +33,17 @@ int main(void) {
       update_paddle_position_and_speed();
       update_ball_position_based_on_speed();
       update_score();
+      check_score_and_reset();
 
       // Check collisions
-      check_ball_collision_with_wall(ball.position, ball.radius, &ball_speed);
+      check_ball_collision_with_wall(ball.position, ball.radius,
+                                     &current_ball_speed);
 
       check_ball_collision_with_paddle(left_paddle, ball.position, ball.radius,
-                                       &ball_speed);
+                                       &current_ball_speed);
 
       check_ball_collision_with_paddle(right_paddle, ball.position, ball.radius,
-                                       &ball_speed);
+                                       &current_ball_speed);
 
     } break;
     default:
@@ -62,6 +64,7 @@ int main(void) {
       draw_dividing_line();
       draw_ball();
       draw_score();
+      draw_endgame();
     } break;
     default:
       break;

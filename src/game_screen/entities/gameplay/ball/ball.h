@@ -9,12 +9,12 @@ typedef struct Ball {
 } Ball;
 
 extern Ball ball;
-extern Vector2 speeds[6];
-extern Vector2 random_speed;
-extern Vector2 ball_speed;
+extern Vector2 current_ball_speed;
 
-void init_ball();
+void init_ball(Vector2 speed);
 void update_ball_position_based_on_speed();
 void draw_ball();
+Vector2 randomized_ball_speed();
+Vector2 no_ball_speed();
 
 #endif
