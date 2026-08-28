@@ -1,11 +1,14 @@
 #include "../game_screen/entities/gameplay/ball/ball.h"
 #include "../game_screen/entities/gameplay/paddle/paddle.h"
+#include "../sound_effect/sound_effect.h"
 #include <raylib.h>
 
 int rounds = 10;
 
 int score_left_paddle;
 int score_right_paddle;
+
+bool endgame = false;
 
 void init_score() {
   score_left_paddle = 0;
@@ -15,24 +18,34 @@ void init_score() {
 void update_score() {
   if (ball.position.x <= 0) {
     score_right_paddle++;
+    PlaySound(score_point_sound);
     init_ball(randomized_ball_speed());
   }
   if (ball.position.x >= GetScreenWidth()) {
     score_left_paddle++;
+    PlaySound(score_point_sound);
     init_ball(randomized_ball_speed());
   }
 }
 
 void check_score_and_reset() {
-  if (score_left_paddle == rounds || score_right_paddle == rounds) {
-    init_ball(no_ball_speed());
+  if (!endgame &&
+      (score_left_paddle == rounds || score_right_paddle == rounds)) {
 
-    if (IsKeyPressed(KEY_ENTER)) {
-      score_left_paddle = 0;
-      score_right_paddle = 0;
-      init_paddle();
-      init_ball(randomized_ball_speed());
-    }
+    endgame = true;
+
+    PlaySound(endgame_sound);
+    init_ball(no_ball_speed());
+  }
+
+  if (endgame && IsKeyPressed(KEY_ENTER)) {
+    endgame = false;
+
+    score_left_paddle = 0;
+    score_right_paddle = 0;
+
+    init_paddle();
+    init_ball(randomized_ball_speed());
   }
 }
 

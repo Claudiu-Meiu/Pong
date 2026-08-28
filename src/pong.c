@@ -5,6 +5,7 @@
 #include "game_screen/entities/menu/start_button/start_button.h"
 #include "game_screen/game_screen.h"
 #include "score/score.h"
+#include "sound_effect/sound_effect.h"
 #include <raylib.h>
 
 int main(void) {
@@ -13,7 +14,7 @@ int main(void) {
 
   InitWindow(screen_width, screen_height, "Pong");
   ToggleFullscreen();
-  SetTargetFPS(0);
+  SetTargetFPS(300);
 
   GameScreen current_screen = MENU;
 
@@ -21,6 +22,12 @@ int main(void) {
   init_dividing_line();
   init_ball(randomized_ball_speed());
   init_score();
+
+  InitAudioDevice();
+  init_paddle_hit_sound();
+  init_wall_hit_sound();
+  init_score_point_sound();
+  init_endgame_sound();
 
   // GAME LOOP
   while (!WindowShouldClose()) {
