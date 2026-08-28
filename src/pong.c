@@ -14,6 +14,7 @@ int main(void) {
 
   InitWindow(screen_width, screen_height, "Pong");
   ToggleFullscreen();
+  DisableCursor();
   SetTargetFPS(300);
 
   GameScreen current_screen = MENU;
