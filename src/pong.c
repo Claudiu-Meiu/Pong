@@ -38,8 +38,8 @@ int main(void) {
       current_screen = start_button_action(current_screen);
     } break;
     case GAMEPLAY: {
-      update_paddle_position_and_speed();
-      update_ball_position_based_on_speed();
+      update_paddle_position();
+      update_ball_position();
       update_score();
       check_score_and_reset();
 

@@ -12,7 +12,7 @@ extern Ball ball;
 extern Vector2 current_ball_speed;
 
 void init_ball(Vector2 speed);
-void update_ball_position_based_on_speed();
+void update_ball_position();
 void draw_ball();
 Vector2 randomized_ball_speed();
 Vector2 no_ball_speed();

@@ -15,7 +15,7 @@ void init_paddle() {
                   GetScreenHeight() / 2.0f - 100.0f / 2.0f, 20.0f, 100.0f};
 };
 
-void update_paddle_position_and_speed() {
+void update_paddle_position() {
   // Left paddle moving up
   if (IsKeyDown(KEY_W)) {
     left_paddle.y -= GetFrameTime() * left_paddle_speed;

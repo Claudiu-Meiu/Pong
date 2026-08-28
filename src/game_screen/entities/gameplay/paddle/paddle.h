@@ -10,7 +10,7 @@ extern float left_paddle_speed;
 extern float right_paddle_speed;
 
 void init_paddle();
-void update_paddle_position_and_speed();
+void update_paddle_position();
 void draw_paddle();
 
 #endif

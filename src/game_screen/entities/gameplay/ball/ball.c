@@ -14,7 +14,7 @@ void init_ball(Vector2 speed) {
   current_ball_speed = speed;
 }
 
-void update_ball_position_based_on_speed() {
+void update_ball_position() {
   ball.position.x += GetFrameTime() * current_ball_speed.x;
   ball.position.y += GetFrameTime() * current_ball_speed.y;
 }
