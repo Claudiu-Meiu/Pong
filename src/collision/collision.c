@@ -55,3 +55,12 @@ void check_ball_collision_with_paddle(Rectangle paddle, Vector2 *ball_position,
     }
   }
 }
+
+void check_paddle_collision_with_wall(float *paddle_position_y,
+                                      float paddle_height) {
+  if (*paddle_position_y < 0)
+    *paddle_position_y = 0;
+
+  if (*paddle_position_y + paddle_height > GetScreenHeight())
+    *paddle_position_y = GetScreenHeight() - paddle_height;
+}

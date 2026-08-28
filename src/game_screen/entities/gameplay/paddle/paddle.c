@@ -18,36 +18,20 @@ void init_paddle() {
 void update_paddle_position_and_speed() {
   // Left paddle moving up
   if (IsKeyDown(KEY_W)) {
-    if (left_paddle.y <= 0) {
-      left_paddle_speed += 0;
-    } else {
-      left_paddle.y -= GetFrameTime() * left_paddle_speed;
-    }
+    left_paddle.y -= GetFrameTime() * left_paddle_speed;
   }
   // Left paddle moving down
   if (IsKeyDown(KEY_S)) {
-    if (left_paddle.y >= (GetScreenHeight() - left_paddle.height)) {
-      left_paddle_speed += 0;
-    } else {
-      left_paddle.y += GetFrameTime() * left_paddle_speed;
-    }
+    left_paddle.y += GetFrameTime() * left_paddle_speed;
   }
 
   // Right paddle moving up
   if (IsKeyDown(KEY_UP)) {
-    if (right_paddle.y <= 0) {
-      right_paddle_speed += 0;
-    } else {
-      right_paddle.y -= GetFrameTime() * right_paddle_speed;
-    }
+    right_paddle.y -= GetFrameTime() * right_paddle_speed;
   }
   // Right paddle moving down
   if (IsKeyDown(KEY_DOWN)) {
-    if (right_paddle.y >= (GetScreenHeight() - right_paddle.height)) {
-      right_paddle_speed += 0;
-    } else {
-      right_paddle.y += GetFrameTime() * right_paddle_speed;
-    }
+    right_paddle.y += GetFrameTime() * right_paddle_speed;
   }
 }
 
