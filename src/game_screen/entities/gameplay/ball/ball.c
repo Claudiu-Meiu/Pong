@@ -1,32 +1,30 @@
+#include "ball.h"
 #include <raylib.h>
 #include <stdlib.h>
 
-typedef struct Ball {
-  Vector2 position;
-  float radius;
-} Ball;
-
 Ball ball;
-Vector2 current_ball_speed;
 
 void init_ball(Vector2 speed) {
-  ball = (Ball){{GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f}, 10.0f};
-  current_ball_speed = speed;
+  ball = (Ball){.position = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f},
+                .radius = 10.0f,
+                .speed = speed};
 }
 
-void update_ball_position() {
-  ball.position.x += GetFrameTime() * current_ball_speed.x;
-  ball.position.y += GetFrameTime() * current_ball_speed.y;
+void update_ball_position(void) {
+  float dt = GetFrameTime();
+
+  ball.position.y += dt * ball.speed.y;
+  ball.position.x += dt * ball.speed.x;
 }
 
-void draw_ball() { DrawCircleV(ball.position, ball.radius, WHITE); }
+void draw_ball(void) { DrawCircleV(ball.position, ball.radius, WHITE); }
 
-Vector2 randomized_ball_speed() {
-  Vector2 speeds[6] = {
+Vector2 randomized_ball_speed(void) {
+  Vector2 speeds[] = {
       {500.0f, 500.0f}, {-500.0f, 500.0f}, {500.0f, 0.0f},
       {-500.0f, 0.0f},  {500.0f, -500.0f}, {-500.0f, -500.0f},
   };
-  return speeds[rand() % 6];
+  return speeds[rand() % (sizeof(speeds) / sizeof(speeds[0]))];
 }
 
-Vector2 no_ball_speed() { return (Vector2){0.0f, 0.0f}; }
+Vector2 no_ball_speed(void) { return (Vector2){0.0f, 0.0f}; }

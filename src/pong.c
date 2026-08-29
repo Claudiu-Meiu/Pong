@@ -44,14 +44,13 @@ int main(void) {
       check_score_and_reset();
 
       // Check collisions
-      check_ball_collision_with_wall(&ball.position, ball.radius,
-                                     &current_ball_speed);
+      check_ball_collision_with_wall(&ball.position, ball.radius, &ball.speed);
 
       check_ball_collision_with_paddle(left_paddle, &ball.position, ball.radius,
-                                       &current_ball_speed);
+                                       &ball.speed);
 
       check_ball_collision_with_paddle(right_paddle, &ball.position,
-                                       ball.radius, &current_ball_speed);
+                                       ball.radius, &ball.speed);
 
       check_paddle_collision_with_wall(&left_paddle.y, left_paddle.height);
       check_paddle_collision_with_wall(&right_paddle.y, right_paddle.height);
