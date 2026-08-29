@@ -7,17 +7,18 @@ TARGET = bin/Pong/pong
 RESOURCES_SRC = resources
 RESOURCES_DST = bin/Pong/resources
 
-rwildcard = $(foreach d,$(wildcard $1*/),$(call rwildcard,$d,$2)) \
-            $(wildcard $1$2)
+SRC := $(shell find src -type f -name '*.c')
 
-SRC = $(call rwildcard,src/,*.c)
+ifeq ($(OS),Windows_NT)
+    LDFLAGS += -Iinclude -Llib -lgdi32 -lwinmm
+endif
 
 .PHONY: all clean resources
 
 all: $(TARGET) resources
 
 $(TARGET): $(SRC)
-	@mkdir -p bin/Pong
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $(SRC) $(LDFLAGS)
 
 resources:
