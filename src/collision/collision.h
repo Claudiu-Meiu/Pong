@@ -1,6 +1,8 @@
-#ifndef _COLLISION_H
-#define _COLLISION_H
+#ifndef COLLISION_H
+#define COLLISION_H
 
+#include "../sound_effect/sound_effect.h"
+#include <math.h>
 #include <raylib.h>
 
 void check_ball_collision_with_wall(Vector2 *ball_position, float ball_radius,
