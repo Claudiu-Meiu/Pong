@@ -2,6 +2,7 @@
 #define BALL_H
 
 #include <raylib.h>
+#include <stdlib.h>
 
 typedef struct Ball {
   Vector2 position;

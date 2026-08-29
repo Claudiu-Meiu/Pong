@@ -1,6 +1,4 @@
 #include "ball.h"
-#include <raylib.h>
-#include <stdlib.h>
 
 Ball ball;
 
