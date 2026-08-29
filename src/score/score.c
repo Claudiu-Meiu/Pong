@@ -1,7 +1,4 @@
-#include "../game_screen/entities/gameplay/ball/ball.h"
-#include "../game_screen/entities/gameplay/paddle/paddle.h"
-#include "../sound_effect/sound_effect.h"
-#include <raylib.h>
+#include "score.h"
 
 int rounds = 10;
 
@@ -10,12 +7,12 @@ int score_right_paddle;
 
 bool endgame = false;
 
-void init_score() {
+void init_score(void) {
   score_left_paddle = 0;
   score_right_paddle = 0;
 }
 
-void update_score() {
+void update_score(void) {
   if (ball.position.x <= 0) {
     score_right_paddle++;
     PlaySound(score_point_sound);
@@ -28,7 +25,7 @@ void update_score() {
   }
 }
 
-void check_score_and_reset() {
+void check_score_and_reset(void) {
   if (!endgame &&
       (score_left_paddle == rounds || score_right_paddle == rounds)) {
 
@@ -49,7 +46,7 @@ void check_score_and_reset() {
   }
 }
 
-void draw_score() {
+void draw_score(void) {
   const int font_size = 100;
 
   const char *left_score_text = TextFormat("%d", score_left_paddle);
@@ -68,7 +65,7 @@ void draw_score() {
            font_size, RAYWHITE);
 }
 
-void draw_endgame() {
+void draw_endgame(void) {
   const char *winner_text = "You won!";
   const int winner_text_font_size = 50;
   const int winner_text_measured =
