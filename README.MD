@@ -22,9 +22,7 @@ A simple Pong game written in **C** using [raylib](https://www.raylib.com/).
 
 ## Pre-built Releases
 
-Pre-built executables for Windows and Linux are available here:
-
-**[Download the latest release](https://github.com/Claudiu-Meiu/Pong/releases/latest)**
+Pre-built executables for Windows and Linux are available here: **[Releases](https://github.com/Claudiu-Meiu/Pong/releases)**
 
 If you want to build the game yourself, follow the instructions below.
 
