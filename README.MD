@@ -11,7 +11,7 @@ A simple Pong game written in **C** using [raylib](https://www.raylib.com/).
 
 ## Demo
 
-![Pong Demo](demo/pong_raylib_demo.png)
+![Pong Demo](demo/pong_raylib_demo.gif)
 
 ## Controls
 
